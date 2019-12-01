@@ -1,23 +1,64 @@
 package com.lrb.sys.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.lrb.sys.entity.Menu;
+import com.lrb.sys.service.impl.MenuServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author lrbin
  * @version 1.0.0
  * @company
  * @create 2019/11/29 17:28
- * @Description
+ * @Description 菜单控制
  */
 @WebServlet("/sys/menu")
 public class MenuServlet extends HttpServlet {
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private MenuServiceImpl menuService = new MenuServiceImpl();
 
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Menu> list = menuService.listAll();
+
+        //1级菜单
+        List<Menu> listParent = new ArrayList<>();
+        //2级菜单
+        List<Menu> listSon = new ArrayList<>();
+
+//        for (Menu aList : list) {
+//            if (aList.getType().equals("1")) {
+//                listParent.add(aList);
+//            }
+//
+//            if (aList.getType().equals("2")) {
+//                listSon.add(aList);
+//            }
+//        }
+        listParent = list.stream().filter(menu -> menu.getType().equals("1")).collect(Collectors.toList());
+
+        listSon = list.stream().filter(menu -> menu.getType().equals("2")).collect(Collectors.toList());
+
+        Map<String, List<Menu>> map = new HashMap<>();
+        map.put("parent", listParent);
+        map.put("son", listSon);
+
+        String mapJsonStr = JSON.toJSONString(map);
+        Map<String, List<Menu>> map2 = JSON.parseObject(mapJsonStr, new TypeReference<Map<String, List<Menu>>>() {
+        });
+        PrintWriter out = response.getWriter();
+        out.append(mapJsonStr);
     }
 }
