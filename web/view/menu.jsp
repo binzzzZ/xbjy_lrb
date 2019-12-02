@@ -28,13 +28,13 @@
                     html = html + '</ul>';
                 }
 
-                $("#div-menu").append(html);
+                $("#menu").append(html);
             }
         });
     })
 </script>
 <body>
-<div id="div-menu" style="border: 1px solid red;width: 10%;height: 85%;float: left;">
+<div id="menu" style="border: 1px solid red;width: 10%;height: 85%;float: left;">
 
 </div>
 </body>

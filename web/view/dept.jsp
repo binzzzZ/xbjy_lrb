@@ -12,7 +12,7 @@
     <%@ include file="/view/menu.jsp"%>
 
     <div style="border: 1px solid red;width: 88%;height: 85%;float: right;">
-        部门界面！。。。。
+        部门界面
     </div>
 
 </div>
