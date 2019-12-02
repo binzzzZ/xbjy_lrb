@@ -4,6 +4,6 @@
     <title>$Title$</title>
 </head>
 <body>
-<a href="/view/home.jsp">登录</a>
+<a href="/view/common/home.jsp">登录</a>
 </body>
 </html>

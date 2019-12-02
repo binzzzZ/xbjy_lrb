@@ -22,7 +22,7 @@ public class BaseServlet extends HttpServlet {
         String[] methods = uri.split("/");
         String methodStr = methods[methods.length - 1];
 
-        //this-->子类的实例化对象
+        //this
         Class<? extends BaseServlet> aClass = this.getClass();
         try {
             Method method = aClass.getDeclaredMethod(methodStr, HttpServletRequest.class, HttpServletResponse.class);

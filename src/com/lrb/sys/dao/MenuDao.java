@@ -17,7 +17,6 @@ import java.util.List;
 public class MenuDao {
     private JdbcTemplate template = new JdbcTemplate(DBUtil.getDataSource());
 
-
     public List<Menu> listAll() {
         String sql = "select * from sys_menu order by order_by";
         return template.query(sql, new BeanPropertyRowMapper<>(Menu.class));
