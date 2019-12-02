@@ -4,6 +4,8 @@
     <title>$Title$</title>
 </head>
 <body>
-<a href="/view/home.jsp">登录</a>
+<div style="border: 1px solid red;height:10%;">
+    导航栏
+</div>
 </body>
 </html>
