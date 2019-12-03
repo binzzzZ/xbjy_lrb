@@ -13,9 +13,9 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * @author admin
- * @version 1.0.1
- * @company 东方标准
+ * @author lrb
+ * @version 1.0.0
+ * @company
  * @date 2019/11/29 12:03
  * @description JdbcTemplate连接工具类
  */

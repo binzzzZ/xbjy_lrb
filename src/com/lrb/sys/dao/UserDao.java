@@ -52,6 +52,11 @@ public class UserDao {
         String sql = "update sys_user set dept_id=?,account=?,password=?,name=?,age=?,sex=?,email=?,birth_date=?" +
                 " where id = ?";
         template.update(sql, user.getDeptId(), user.getAccount(), user.getPassword(), user.getName(), user.getAge(),
-                user.getSex(), user.getEmail(), user.getBirthDate(),user.getId());
+                user.getSex(), user.getEmail(), user.getBirthDate(), user.getId());
+    }
+
+    public void updatePassword(User user) {
+        String sql = "update sys_user set password = ? where account = ?";
+        template.update(sql, user.getPassword(), user.getAccount());
     }
 }

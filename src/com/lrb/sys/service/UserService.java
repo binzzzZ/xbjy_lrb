@@ -24,4 +24,6 @@ public interface UserService {
     public User getById(Integer id);
 
     public void updateById(User user);
+
+    public void updatePassword(User user);
 }

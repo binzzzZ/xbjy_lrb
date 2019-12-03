@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>menu</title>
+    <title>菜单</title>
 </head>
 <script src="/static/js/jquery-3.4.1.js" type="text/javascript"></script>
 

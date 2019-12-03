@@ -4,9 +4,9 @@ import com.lrb.sys.dao.UserDao;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.entity.User;
 import com.lrb.sys.service.UserService;
+import com.lrb.utils.DateUtil;
+import com.lrb.utils.MDUtil;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,9 +52,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void add(User user) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String dateStr = sdf.format(new Date());
-        user.setCreateTime(dateStr);
+        user.setCreateTime(DateUtil.getDateStr());
+        user.setPassword(MDUtil.md5(user.getPassword()));
         user.setCreateBy(null);
         userDao.add(user);
     }
@@ -72,12 +71,12 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-    * @Description: 获取一条记录
-    * @author: lrb
-    * @param: [id]
-    * @return: com.lrb.sys.entity.User
-    * @create: 2019/12/2 19:16
-    */
+     * @Description: 通过ID查询User
+     * @author: lrb
+     * @param: [id]
+     * @return: com.lrb.sys.entity.User
+     * @create: 2019/12/2 19:16
+     */
     @Override
     public User getById(Integer id) {
         return userDao.getById(id);
@@ -93,5 +92,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateById(User user) {
         userDao.updateById(user);
+    }
+
+    @Override
+    public void updatePassword(User user) {
+        userDao.updatePassword(user);
     }
 }

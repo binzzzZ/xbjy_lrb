@@ -5,5 +5,6 @@
 </head>
 <body>
 <a href="/view/common/home.jsp">登录</a>
+<a href="/view/sys/user/forget.jsp">忘记密码</a>
 </body>
 </html>

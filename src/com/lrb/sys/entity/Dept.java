@@ -8,11 +8,20 @@ package com.lrb.sys.entity;
  * @Description
  */
 public class Dept {
+    private String createName;
     private Integer id;
     private String name;
     private String createTime;
     private Integer createBy;
     private Integer delFlag;
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
+    }
 
     public Integer getId() {
         return id;
