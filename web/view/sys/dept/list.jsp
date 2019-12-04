@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>查询</title>
+    <title>查询部门</title>
 </head>
 <body>
 <%@ include file="/view/common/head.jsp" %>
@@ -15,12 +15,15 @@
             <input type="submit" value="查询" class="btn btn-info">
         </form>
 
+        <a href="/view/sys/dept/add.jsp" class="btn btn-success">添加</a>
+
         <table class="table table-bordered text-center">
             <tr>
                 <td>序号</td>
                 <td>部门名称</td>
                 <td>创建时间</td>
                 <td>创建人</td>
+                <%--<td>部门人数</td>--%>
                 <td>操作</td>
             </tr>
 
@@ -34,21 +37,23 @@
                         <fmt:formatDate value="${createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
                     </td>
                     <td>${dept.createName}</td>
+                        <%--<td></td>--%>
                     <td>
+                        <a href="/sys/dept/toUpdate?id=${dept.id}">修改</a>
                         <a href="/sys/dept/delete?id=${dept.id}">删除</a>
                     </td>
                 </tr>
             </c:forEach>
 
         </table>
-        <a href="/sys/dept/listAll?page=1&name=${name}" class="btn btn-primary">首页</a>
-        <a href="/sys/dept/listAll?page=${(page.page-1)<=0?1:(page.page-1)}&name=${name}"
+        <a href="/sys/dept/listAll?name=${name}&page=1" class="btn btn-primary">首页</a>
+        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCurrent<=1 ? 1 : (page.pageCurrent-1)}"
            class="btn btn-info">上一页</a>
-        <a href="/sys/dept/listAll?page=${(page.page+1) >page.pageTotal ? page.pageTotal :(page.page+1)}&name=${name}"
+        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCurrent>=page.pageCount ? page.pageCount : (page.pageCurrent+1)}"
            class="btn btn-info">下一页</a>
-        <a href="/sys/dept/listAll?page=${page.pageTotal}&name=${name}" class="btn btn-primary">尾页</a>
+        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCount}" class="btn btn-primary">尾页</a>
         <br>
-        当前页：${page.page}，总页数：${page.pageTotal},总记录数：${page.count},每页显示记录数：${page.pageSize}
+        当前页：${page.pageCurrent}，总页数：${page.pageCount},总记录数：${page.count},每页显示记录数：${page.pageSize}
     </div>
 </div>
 </body>

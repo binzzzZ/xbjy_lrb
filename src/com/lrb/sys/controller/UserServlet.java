@@ -4,7 +4,7 @@ import com.lrb.sys.constants.SysConstant;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.entity.User;
 import com.lrb.sys.service.impl.UserServiceImpl;
-import com.lrb.utils.MDUtil;
+import com.lrb.sys.utils.MDUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.StringUtils;
 
@@ -30,7 +30,7 @@ public class UserServlet extends BaseServlet {
     private UserServiceImpl userService = new UserServiceImpl();
 
     /**
-     * @Description: 查询数据
+     * @Description: 查询用户数据
      * @author: lrb
      * @param: [request, response]
      * @return: void
@@ -46,17 +46,9 @@ public class UserServlet extends BaseServlet {
         page.setCount(count);
 
         //当前页
-        Integer pageCurrent = 1;
         String pageStr = request.getParameter("page");
-        if (!StringUtils.isEmpty(pageStr)) {
-            pageCurrent = Integer.valueOf(pageStr);
-        }
-        page.setPage(pageCurrent);
-
-        //总页数
-        Integer pageTotal;
-        pageTotal = count % 3 == 0 ? count / 3 : count / 3 + 1;
-        page.setPageTotal(pageTotal);
+        Integer pageCurrent = pageStr == null ? 1 : Integer.valueOf(pageStr);
+        page.setPageCurrent(pageCurrent);
 
         List<User> list = userService.list(account, page);
 
@@ -67,29 +59,25 @@ public class UserServlet extends BaseServlet {
     }
 
     /**
-     * @Description: 添加数据
+     * @Description: 添加一条用户数据
      * @author: lrb
      * @param: [request, response]
      * @return: void
      * @create: 2019/12/2 17:28
      */
-    public void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void add(HttpServletRequest request, HttpServletResponse response) throws IOException, InvocationTargetException, IllegalAccessException {
         User user = new User();
         Map<String, String[]> map = request.getParameterMap();
+        BeanUtils.populate(user, map);
 
-        try {
-            BeanUtils.populate(user, map);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        //设置创建人
+        user.setCreateBy(super.getLoginUser().getId());
         userService.add(user);
         response.sendRedirect("/sys/user/list");
     }
 
     /**
-     * @Description: 删除数据
+     * @Description: 通过ID删除一条用户数据
      * @author: lrb
      * @param: [request, response]
      * @return: void

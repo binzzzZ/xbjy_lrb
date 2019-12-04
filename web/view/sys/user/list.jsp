@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>查询</title>
+    <title>查询用户</title>
 </head>
 <body>
 <%@ include file="/view/common/head.jsp" %>
@@ -59,14 +59,14 @@
             </c:forEach>
 
         </table>
-        <a href="/sys/user/list?page=1&account=${account}" class="btn btn-primary">首页</a>
-        <a href="/sys/user/list?page=${(page.page-1)<=0?1:(page.page-1)}&account=${account}"
+        <a href="/sys/user/list?account=${account}&page=1" class="btn btn-primary">首页</a>
+        <a href="/sys/user/list?account=${account}&page=${page.pageCurrent<=1 ? 1 : (page.pageCurrent-1)}"
            class="btn btn-info">上一页</a>
-        <a href="/sys/user/list?page=${(page.page+1) >page.pageTotal ? page.pageTotal :(page.page+1)}&account=${account}"
+        <a href="/sys/user/list?account=${account}&page=${page.pageCurrent>=page.pageCount ? page.pageCount : (page.pageCurrent+1)}"
            class="btn btn-info">下一页</a>
-        <a href="/sys/user/list?page=${page.pageTotal}&account=${account}" class="btn btn-primary">尾页</a>
+        <a href="/sys/user/list?account=${account}&page=${page.pageCount}" class="btn btn-primary">尾页</a>
         <br>
-        当前页：${page.page}，总页数：${page.pageTotal},总记录数：${page.count},每页显示记录数：${page.pageSize}
+        当前页：${page.pageCurrent}，总页数：${page.pageCount},总记录数：${page.count},每页显示记录数：${page.pageSize}
     </div>
 </div>
 </body>

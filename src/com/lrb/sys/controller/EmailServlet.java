@@ -1,7 +1,7 @@
 package com.lrb.sys.controller;
 
 import com.lrb.sys.constants.SysConstant;
-import com.lrb.utils.EmailUtil;
+import com.lrb.sys.utils.EmailUtil;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +31,6 @@ public class EmailServlet extends BaseServlet {
         session.setMaxInactiveInterval(60);
 
         PrintWriter out = response.getWriter();
-        out.append("发送成功!");
+        out.append("200");
     }
 }

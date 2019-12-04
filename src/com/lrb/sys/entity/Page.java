@@ -11,11 +11,11 @@ public class Page {
     //总记录数
     private Integer count;
     //当前页
-    private Integer page;
+    private Integer pageCurrent;
     //每页显示多少条数据
-    private Integer pageSize = 3;
+    private Integer pageSize = 4;
     //总页数
-    private Integer pageTotal;
+    private Integer pageCount;
 
     public Integer getCount() {
         return count;
@@ -25,12 +25,12 @@ public class Page {
         this.count = count;
     }
 
-    public Integer getPage() {
-        return page;
+    public Integer getPageCurrent() {
+        return pageCurrent;
     }
 
-    public void setPage(Integer page) {
-        this.page = page;
+    public void setPageCurrent(Integer pageCurrent) {
+        this.pageCurrent = pageCurrent;
     }
 
     public Integer getPageSize() {
@@ -41,11 +41,11 @@ public class Page {
         this.pageSize = pageSize;
     }
 
-    public Integer getPageTotal() {
-        return pageTotal;
+    public Integer getPageCount() {
+        return this.count % this.pageSize == 0 ? this.count / this.pageSize : (this.count / this.pageSize + 1);
     }
 
-    public void setPageTotal(Integer pageTotal) {
-        this.pageTotal = pageTotal;
+    public void setPageCount(Integer pageCount) {
+        this.pageCount = pageCount;
     }
 }

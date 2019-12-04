@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>修改</title>
+    <title>修改用户</title>
 </head>
+<script src="${path}/static/jquery-validation-1.9.0/jquery.validate.js"></script>
 <body>
 <%@ include file="/view/common/head.jsp" %>
 <div>

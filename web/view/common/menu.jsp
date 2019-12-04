@@ -3,8 +3,7 @@
 <head>
     <title>菜单</title>
 </head>
-<script src="/static/js/jquery-3.4.1.js" type="text/javascript"></script>
-
+<script src="${pageContext.request.contextPath}/static/js/jquery-3.4.1.min.js"></script>
 <script>
     $(function () {
 

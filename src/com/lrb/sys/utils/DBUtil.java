@@ -1,4 +1,4 @@
-package com.lrb.utils;
+package com.lrb.sys.utils;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.springframework.jdbc.core.JdbcTemplate;

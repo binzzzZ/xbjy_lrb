@@ -19,7 +19,13 @@ public interface DeptService {
 
     public Integer getCount(String name);
 
-    public Integer countDeptUser(Integer id);
+    public Integer getDeptUserCount(Integer id);
 
     public void deleteById(Integer id);
+
+    public void add(Dept dept);
+
+    public Dept getById(Integer id);
+
+    public void updateById(Dept dept);
 }

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>部门</title>
+    <title>部门界面</title>
 </head>
 <style>
 

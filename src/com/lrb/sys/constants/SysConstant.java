@@ -9,4 +9,6 @@ package com.lrb.sys.constants;
  */
 public class SysConstant {
     public static final String SESSION_EMAIL_CODE_NAME = "sessionEmailCodeName";
+    public static final String SESSION_PIC_CODE_NAME = "sessionPicCodeName";
+    public static final String SESSION_LOGIN_NAME = "sessionLoginName";
 }

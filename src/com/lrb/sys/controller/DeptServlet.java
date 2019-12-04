@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lrb.sys.entity.Dept;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.service.impl.DeptServiceImpl;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletException;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lrbin
@@ -33,6 +36,13 @@ public class DeptServlet extends BaseServlet {
         out.append(deptStr);
     }
 
+    /**
+     * @Description: 查询所有部门
+     * @author: lrb
+     * @param: [request, response]
+     * @return: void
+     * @create: 2019/12/4 9:29
+     */
     public void listAll(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String name = request.getParameter("name");
         name = StringUtils.isEmpty(name) ? "" : name;
@@ -43,17 +53,9 @@ public class DeptServlet extends BaseServlet {
         page.setCount(count);
 
         //当前页
-        Integer pageCurrent = 1;
         String pageStr = request.getParameter("page");
-        if (!StringUtils.isEmpty(pageStr)) {
-            pageCurrent = Integer.valueOf(pageStr);
-        }
-        page.setPage(pageCurrent);
-
-        //总页数
-        Integer pageTotal;
-        pageTotal = count % 3 == 0 ? count / 3 : count / 3 + 1;
-        page.setPageTotal(pageTotal);
+        Integer pageCurrent = pageStr == null ? 1 : Integer.valueOf(pageStr);
+        page.setPageCurrent(pageCurrent);
 
         List<Dept> list = deptService.listAll(name, page);
 
@@ -63,15 +65,66 @@ public class DeptServlet extends BaseServlet {
         request.getRequestDispatcher("/view/sys/dept/list.jsp").forward(request, response);
     }
 
+    /**
+     * @Description: 通过ID删除部门
+     * @author: lrb
+     * @param: [request, response]
+     * @return: void
+     * @create: 2019/12/4 9:31
+     */
     public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String id = request.getParameter("id");
-        Integer count = deptService.countDeptUser(Integer.valueOf(id));
+        Integer count = deptService.getDeptUserCount(Integer.valueOf(id));
         if (id == null || count != 0) {
             response.sendRedirect("/sys/dept/listAll");
             return;
         }
 
         deptService.deleteById(Integer.valueOf(id));
+        response.sendRedirect("/sys/dept/listAll");
+    }
+
+    /**
+     * @Description: 添加部门
+     * @author: lrb
+     * @param: [request, response]
+     * @return: void
+     * @create: 2019/12/4 12:08
+     */
+    public void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Dept dept = new Dept();
+        String name = request.getParameter("name");
+        dept.setName(name);
+        dept.setCreateBy(super.getLoginUser().getId());
+
+        deptService.add(dept);
+        response.sendRedirect("/sys/dept/listAll");
+    }
+
+    public void toUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        if (id == null) {
+            return;
+        }
+        Dept dept = deptService.getById(Integer.valueOf(id));
+
+        request.setAttribute("dept", dept);
+        request.getRequestDispatcher("/view/sys/dept/update.jsp").forward(request, response);
+    }
+
+    public void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Dept dept = new Dept();
+        Map<String, String[]> map = request.getParameterMap();
+
+        try {
+            BeanUtils.populate(dept, map);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        deptService.updateById(dept);
         response.sendRedirect("/sys/dept/listAll");
     }
 }

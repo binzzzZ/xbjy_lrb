@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>添加</title>
+    <title>添加用户</title>
 </head>
 <script src="${path}/static/jquery-validation-1.9.0/jquery.validate.js"></script>
 <body>

@@ -1,7 +1,7 @@
 package com.lrb.sys.dao;
 
 import com.lrb.sys.entity.Menu;
-import com.lrb.utils.DBUtil;
+import com.lrb.sys.utils.DBUtil;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 

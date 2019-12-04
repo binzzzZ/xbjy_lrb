@@ -1,4 +1,4 @@
-package com.lrb.utils;
+package com.lrb.sys.utils;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 

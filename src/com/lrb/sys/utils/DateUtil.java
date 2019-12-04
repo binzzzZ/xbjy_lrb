@@ -1,4 +1,4 @@
-package com.lrb.utils;
+package com.lrb.sys.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

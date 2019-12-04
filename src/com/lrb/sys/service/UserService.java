@@ -26,4 +26,6 @@ public interface UserService {
     public void updateById(User user);
 
     public void updatePassword(User user);
+
+    public List<User> checkLogin(User user);
 }

@@ -4,8 +4,8 @@ import com.lrb.sys.dao.UserDao;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.entity.User;
 import com.lrb.sys.service.UserService;
-import com.lrb.utils.DateUtil;
-import com.lrb.utils.MDUtil;
+import com.lrb.sys.utils.DateUtil;
+import com.lrb.sys.utils.MDUtil;
 
 import java.util.List;
 
@@ -54,7 +54,6 @@ public class UserServiceImpl implements UserService {
     public void add(User user) {
         user.setCreateTime(DateUtil.getDateStr());
         user.setPassword(MDUtil.md5(user.getPassword()));
-        user.setCreateBy(null);
         userDao.add(user);
     }
 
@@ -97,5 +96,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePassword(User user) {
         userDao.updatePassword(user);
+    }
+
+    @Override
+    public List<User> checkLogin(User user) {
+        return userDao.checkLogin(user);
     }
 }
