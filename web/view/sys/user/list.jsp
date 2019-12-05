@@ -10,8 +10,8 @@
     <div class="container" style="border: 1px solid red;width: 88%;height: 85%;float: right;">
         <form action="/sys/user/list" method="get">
             账号：<input type="text" name="account" value="${account}">
-            开始时间：<input type="date" value="" name="">
-            结束时间：<input type="date" value="" name="">
+            开始时间：<input type="date" value="${date.beginDate}" name="begin">
+            结束时间：<input type="date" value="${date.endDate}" name="end">
             <input type="submit" value="查询" class="btn btn-info">
         </form>
 
@@ -59,12 +59,14 @@
             </c:forEach>
 
         </table>
-        <a href="/sys/user/list?account=${account}&page=1" class="btn btn-primary">首页</a>
-        <a href="/sys/user/list?account=${account}&page=${page.pageCurrent<=1 ? 1 : (page.pageCurrent-1)}"
+        <a href="/sys/user/list?account=${account}&page=1&begin=${date.beginDate}&end=${date.endDate}"
+           class="btn btn-primary">首页</a>
+        <a href="/sys/user/list?account=${account}&page=${page.pageCurrent<=1 ? 1 : (page.pageCurrent-1)}&begin=${date.beginDate}&end=${date.endDate}"
            class="btn btn-info">上一页</a>
-        <a href="/sys/user/list?account=${account}&page=${page.pageCurrent>=page.pageCount ? page.pageCount : (page.pageCurrent+1)}"
+        <a href="/sys/user/list?account=${account}&page=${page.pageCurrent>=page.pageCount ? page.pageCount : (page.pageCurrent+1)}&begin=${date.beginDate}&end=${date.endDate}"
            class="btn btn-info">下一页</a>
-        <a href="/sys/user/list?account=${account}&page=${page.pageCount}" class="btn btn-primary">尾页</a>
+        <a href="/sys/user/list?account=${account}&page=${page.pageCount}&begin=${date.beginDate}&end=${date.endDate}"
+           class="btn btn-primary">尾页</a>
         <br>
         当前页：${page.pageCurrent}，总页数：${page.pageCount},总记录数：${page.count},每页显示记录数：${page.pageSize}
     </div>

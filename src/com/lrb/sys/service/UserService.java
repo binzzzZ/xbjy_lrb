@@ -1,5 +1,6 @@
 package com.lrb.sys.service;
 
+import com.lrb.sys.entity.DateEntity;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.entity.User;
 
@@ -13,9 +14,9 @@ import java.util.List;
  * @Description
  */
 public interface UserService {
-    public List<User> list(String account, Page page);
+    public List<User> list(String account, Page page, DateEntity date);
 
-    public Integer getCount(String account);
+    public Integer getCount(String account, DateEntity date);
 
     public void add(User user);
 
@@ -28,4 +29,8 @@ public interface UserService {
     public void updatePassword(User user);
 
     public List<User> checkLogin(User user);
+
+    public String getBegin();
+
+    public String getEnd();
 }

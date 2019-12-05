@@ -1,6 +1,7 @@
 package com.lrb.sys.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.lrb.sys.entity.DateEntity;
 import com.lrb.sys.entity.Dept;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.service.impl.DeptServiceImpl;
@@ -47,9 +48,23 @@ public class DeptServlet extends BaseServlet {
         String name = request.getParameter("name");
         name = StringUtils.isEmpty(name) ? "" : name;
 
+        DateEntity date = new DateEntity();
+        //开始、结束时间
+        String begin = request.getParameter("begin");
+        String end = request.getParameter("end");
+
+        if (begin == null || "".equals(begin)) {
+            begin = deptService.getBegin();
+        }
+        if (end == null || "".equals(end)) {
+            end = deptService.getEnd();
+        }
+        date.setBeginDate(begin);
+        date.setEndDate(end);
+
         Page page = new Page();
         //总记录数
-        Integer count = deptService.getCount(name);
+        Integer count = deptService.getCount(name, date);
         page.setCount(count);
 
         //当前页
@@ -57,11 +72,12 @@ public class DeptServlet extends BaseServlet {
         Integer pageCurrent = pageStr == null ? 1 : Integer.valueOf(pageStr);
         page.setPageCurrent(pageCurrent);
 
-        List<Dept> list = deptService.listAll(name, page);
+        List<Dept> list = deptService.listAll(name, page, date);
 
         request.setAttribute("list", list);
         request.setAttribute("name", name);
         request.setAttribute("page", page);
+        request.setAttribute("date", date);
         request.getRequestDispatcher("/view/sys/dept/list.jsp").forward(request, response);
     }
 
@@ -74,8 +90,10 @@ public class DeptServlet extends BaseServlet {
      */
     public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String id = request.getParameter("id");
-        Integer count = deptService.getDeptUserCount(Integer.valueOf(id));
-        if (id == null || count != 0) {
+        String userCount = request.getParameter("userCount");
+
+        //查询部门下的人数，不为0时不可以删除
+        if (id == null || !"".equals(userCount)) {
             response.sendRedirect("/sys/dept/listAll");
             return;
         }

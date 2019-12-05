@@ -1,6 +1,7 @@
 package com.lrb.sys.service.impl;
 
 import com.lrb.sys.dao.UserDao;
+import com.lrb.sys.entity.DateEntity;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.entity.User;
 import com.lrb.sys.service.UserService;
@@ -27,8 +28,8 @@ public class UserServiceImpl implements UserService {
      * @create: 2019/12/2 17:25
      */
     @Override
-    public List<User> list(String account, Page page) {
-        return userDao.list(account, page);
+    public List<User> list(String account, Page page, DateEntity date) {
+        return userDao.list(account, page, date);
     }
 
     /**
@@ -39,8 +40,8 @@ public class UserServiceImpl implements UserService {
      * @create: 2019/12/2 17:25
      */
     @Override
-    public Integer getCount(String account) {
-        return userDao.getCount(account);
+    public Integer getCount(String account, DateEntity date) {
+        return userDao.getCount(account, date);
     }
 
     /**
@@ -93,13 +94,53 @@ public class UserServiceImpl implements UserService {
         userDao.updateById(user);
     }
 
+    /**
+    * @Description: 修改密码
+    * @author: lrb
+    * @param: [user]
+    * @return: void
+    * @create: 2019/12/5 15:42
+    */
     @Override
     public void updatePassword(User user) {
         userDao.updatePassword(user);
     }
 
+    /**
+    * @Description: 验证账号和密码
+    * @author: lrb
+    * @param: [user]
+    * @return: java.util.List<com.lrb.sys.entity.User>
+    * @create: 2019/12/5 15:42
+    */
     @Override
     public List<User> checkLogin(User user) {
         return userDao.checkLogin(user);
     }
+
+    /**
+    * @Description: 获取最早的记录创建时间
+    * @author: lrb
+    * @param: []
+    * @return: java.lang.String
+    * @create: 2019/12/5 15:42
+    */
+    @Override
+    public String getBegin() {
+        return userDao.getBegin();
+    }
+
+    /**
+    * @Description: 获取最新的记录创建时间
+    * @author: lrb
+    * @param: []
+    * @return: java.lang.String
+    * @create: 2019/12/5 15:43
+    */
+    @Override
+    public String getEnd() {
+        return userDao.getEnd();
+    }
+
+
 }

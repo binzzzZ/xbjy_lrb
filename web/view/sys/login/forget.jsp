@@ -14,6 +14,7 @@
             <input type="button" value="发送验证码" id="btn-send">
             <span id="time"></span><br><br>
             <input type="submit" value="修改">
+            <a href="/index.jsp">回到登录页面</a>
         </form>
     </div>
 </div>

@@ -1,5 +1,6 @@
 package com.lrb.sys.service;
 
+import com.lrb.sys.entity.DateEntity;
 import com.lrb.sys.entity.Dept;
 import com.lrb.sys.entity.Page;
 
@@ -15,11 +16,9 @@ import java.util.List;
 public interface DeptService {
     public List<Dept> list();
 
-    public List<Dept> listAll(String name, Page page);
+    public List<Dept> listAll(String name, Page page, DateEntity date);
 
-    public Integer getCount(String name);
-
-    public Integer getDeptUserCount(Integer id);
+    public Integer getCount(String name,DateEntity date);
 
     public void deleteById(Integer id);
 
@@ -28,4 +27,8 @@ public interface DeptService {
     public Dept getById(Integer id);
 
     public void updateById(Dept dept);
+
+    public String getBegin();
+
+    public String getEnd();
 }

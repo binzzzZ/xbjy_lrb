@@ -1,6 +1,7 @@
 package com.lrb.sys.service.impl;
 
 import com.lrb.sys.dao.DeptDao;
+import com.lrb.sys.entity.DateEntity;
 import com.lrb.sys.entity.Dept;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.service.DeptService;
@@ -31,8 +32,8 @@ public class DeptServiceImpl implements DeptService {
      * @create: 2019/12/4 12:05
      */
     @Override
-    public List<Dept> listAll(String name, Page page) {
-        return deptDao.listAll(name, page);
+    public List<Dept> listAll(String name, Page page, DateEntity date) {
+        return deptDao.listAll(name, page, date);
     }
 
     /**
@@ -43,20 +44,8 @@ public class DeptServiceImpl implements DeptService {
      * @create: 2019/12/4 12:05
      */
     @Override
-    public Integer getCount(String name) {
-        return deptDao.getCount(name);
-    }
-
-    /**
-     * @Description: 通过ID获取部门下的人数
-     * @author: lrb
-     * @param: [id]
-     * @return: java.lang.Integer
-     * @create: 2019/12/4 12:05
-     */
-    @Override
-    public Integer getDeptUserCount(Integer id) {
-        return deptDao.getDeptUserCount(id);
+    public Integer getCount(String name, DateEntity date) {
+        return deptDao.getCount(name, date);
     }
 
     /**
@@ -84,13 +73,51 @@ public class DeptServiceImpl implements DeptService {
         deptDao.add(dept);
     }
 
+    /**
+    * @Description: 通过ID查询部门
+    * @author: lrb
+    * @param: [id]
+    * @return: com.lrb.sys.entity.Dept
+    * @create: 2019/12/5 15:48
+    */
     @Override
     public Dept getById(Integer id) {
         return deptDao.getById(id);
     }
 
+    /**
+    * @Description: 修改部门
+    * @author: lrb
+    * @param: [dept]
+    * @return: void
+    * @create: 2019/12/5 15:49
+    */
     @Override
     public void updateById(Dept dept) {
         deptDao.updateById(dept);
+    }
+
+    /**
+     * @Description: 获取最早的记录创建时间
+     * @author: lrb
+     * @param: []
+     * @return: java.lang.String
+     * @create: 2019/12/5 15:42
+     */
+    @Override
+    public String getBegin() {
+        return deptDao.getBegin();
+    }
+
+    /**
+     * @Description: 获取最新的记录创建时间
+     * @author: lrb
+     * @param: []
+     * @return: java.lang.String
+     * @create: 2019/12/5 15:42
+     */
+    @Override
+    public String getEnd() {
+        return deptDao.getEnd();
     }
 }

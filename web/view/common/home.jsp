@@ -11,7 +11,7 @@
     <%@ include file="/view/common/menu.jsp"%>
 
     <div style="border: 1px solid red;width: 88%;height: 85%;float: right;">
-        主体
+        欢迎来到小标交友！
     </div>
 
 </div>

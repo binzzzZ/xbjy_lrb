@@ -1,6 +1,7 @@
 package com.lrb.sys.controller;
 
 import com.lrb.sys.constants.SysConstant;
+import com.lrb.sys.entity.DateEntity;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.entity.User;
 import com.lrb.sys.service.impl.UserServiceImpl;
@@ -40,9 +41,23 @@ public class UserServlet extends BaseServlet {
         String account = request.getParameter("account");
         account = StringUtils.isEmpty(account) ? "" : account;
 
+        DateEntity date = new DateEntity();
+        //开始、结束时间
+        String begin = request.getParameter("begin");
+        String end = request.getParameter("end");
+
+        if (begin == null || begin.equals("")) {
+            begin = userService.getBegin();
+        }
+        if (end == null || end.equals("")) {
+            end = userService.getEnd();
+        }
+        date.setBeginDate(begin);
+        date.setEndDate(end);
+
         Page page = new Page();
         //总记录数
-        Integer count = userService.getCount(account);
+        Integer count = userService.getCount(account, date);
         page.setCount(count);
 
         //当前页
@@ -50,11 +65,12 @@ public class UserServlet extends BaseServlet {
         Integer pageCurrent = pageStr == null ? 1 : Integer.valueOf(pageStr);
         page.setPageCurrent(pageCurrent);
 
-        List<User> list = userService.list(account, page);
+        List<User> list = userService.list(account, page, date);
 
         request.setAttribute("list", list);
         request.setAttribute("account", account);
         request.setAttribute("page", page);
+        request.setAttribute("date", date);
         request.getRequestDispatcher("/view/sys/user/list.jsp").forward(request, response);
     }
 
@@ -118,17 +134,11 @@ public class UserServlet extends BaseServlet {
      * @return: void
      * @create: 2019/12/2 19:46
      */
-    public void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void update(HttpServletRequest request, HttpServletResponse response) throws IOException, InvocationTargetException, IllegalAccessException {
         User user = new User();
         Map<String, String[]> map = request.getParameterMap();
 
-        try {
-            BeanUtils.populate(user, map);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        BeanUtils.populate(user, map);
         userService.updateById(user);
         response.sendRedirect("/sys/user/list");
     }
@@ -144,11 +154,13 @@ public class UserServlet extends BaseServlet {
         String account = request.getParameter("account");
         String password = request.getParameter("password");
 
+        //邮件验证码
         String code = request.getParameter("code");
 
         HttpSession session = request.getSession();
         Object obj = session.getAttribute(SysConstant.SESSION_EMAIL_CODE_NAME);
 
+        //前端验证码和session中的比较
         if (obj == null || !obj.toString().equals(code)) {
             response.sendRedirect("/view/sys/user/forget.jsp");
             return;
@@ -159,6 +171,7 @@ public class UserServlet extends BaseServlet {
         user.setPassword(MDUtil.md5(password));
         userService.updatePassword(user);
 
+        //修改完回到登录页面
         response.sendRedirect("/index.jsp");
     }
 }

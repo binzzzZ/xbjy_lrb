@@ -1,5 +1,6 @@
 package com.lrb.sys.dao;
 
+import com.lrb.sys.entity.DateEntity;
 import com.lrb.sys.entity.Dept;
 import com.lrb.sys.entity.Page;
 import com.lrb.sys.utils.DBUtil;
@@ -23,21 +24,18 @@ public class DeptDao {
         return template.query(sql, new BeanPropertyRowMapper<>(Dept.class));
     }
 
-    public List<Dept> listAll(String name, Page page) {
-        String sql = "select d.id,d.name,d.create_time,u.name createName from sys_dept d left join sys_user u " +
-                "on d.create_by=u.id where d.name like ? order by d.create_time desc limit ?,?";
-        return template.query(sql, new BeanPropertyRowMapper<>(Dept.class), "%" + name + "%",
-                (page.getPageCurrent() - 1) * page.getPageSize(), page.getPageSize());
+    public List<Dept> listAll(String name, Page page, DateEntity date) {
+        String sql = "select d.*,a.counts userCount,u.name createName from sys_dept d left join sys_user u on d.create_by=u.id " +
+                "left join (select count(*) counts,dept_id deptId from sys_user group by dept_id) a on d.id=a.deptId " +
+                "where d.name like ? and d.create_time between ? and ? order by d.create_time desc limit ?,?";
+        return template.query(sql, new BeanPropertyRowMapper<>(Dept.class), "%" + name + "%", date.getBeginDate(),
+                date.getEndDate(), (page.getPageCurrent() - 1) * page.getPageSize(), page.getPageSize());
     }
 
-    public Integer getCount(String name) {
-        String sql = "select count(*) from sys_dept where name like ?";
-        return template.queryForObject(sql, Integer.class, "%" + name + "%");
-    }
-
-    public Integer getDeptUserCount(Integer id) {
-        String sql = "select count(*) from sys_user u left join sys_dept d on d.id=u.dept_id where d.id=?";
-        return template.queryForObject(sql, Integer.class, id);
+    public Integer getCount(String name, DateEntity date) {
+        String sql = "select count(*) from sys_dept where name like ? and create_time between ? and ?";
+        return template.queryForObject(sql, Integer.class, "%" + name + "%", date.getBeginDate(),
+                date.getEndDate());
     }
 
     public void deleteById(Integer id) {
@@ -58,5 +56,15 @@ public class DeptDao {
     public void updateById(Dept dept) {
         String sql = "update sys_dept set name=? where id=?";
         template.update(sql, dept.getName(), dept.getId());
+    }
+
+    public String getBegin() {
+        String sql = "select create_time from sys_dept order by create_time limit 1";
+        return template.queryForObject(sql, String.class);
+    }
+
+    public String getEnd() {
+        String sql = "select create_time from sys_dept order by create_time desc limit 1";
+        return template.queryForObject(sql, String.class);
     }
 }

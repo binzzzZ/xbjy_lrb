@@ -14,6 +14,7 @@ public class Dept {
     private String createTime;
     private Integer createBy;
     private Integer delFlag;
+    private Integer userCount;
 
     public String getCreateName() {
         return createName;
@@ -61,5 +62,13 @@ public class Dept {
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public Integer getUserCount() {
+        return userCount;
+    }
+
+    public void setUserCount(Integer userCount) {
+        this.userCount = userCount;
     }
 }

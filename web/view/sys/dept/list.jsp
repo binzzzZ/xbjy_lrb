@@ -10,8 +10,8 @@
     <div class="container" style="border: 1px solid red;width: 88%;height: 85%;float: right;">
         <form action="/sys/dept/listAll" method="get">
             部门名称：<input type="text" name="name" value="${name}">
-            开始时间：<input type="date" value="" name="">
-            结束时间：<input type="date" value="" name="">
+            开始时间：<input type="date" value="${date.beginDate}" name="begin">
+            结束时间：<input type="date" value="${date.endDate}" name="end">
             <input type="submit" value="查询" class="btn btn-info">
         </form>
 
@@ -23,7 +23,7 @@
                 <td>部门名称</td>
                 <td>创建时间</td>
                 <td>创建人</td>
-                <%--<td>部门人数</td>--%>
+                <td>部门人数</td>
                 <td>操作</td>
             </tr>
 
@@ -37,21 +37,23 @@
                         <fmt:formatDate value="${createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
                     </td>
                     <td>${dept.createName}</td>
-                        <%--<td></td>--%>
+                    <td>${dept.userCount==null?0:dept.userCount}</td>
                     <td>
                         <a href="/sys/dept/toUpdate?id=${dept.id}">修改</a>
-                        <a href="/sys/dept/delete?id=${dept.id}">删除</a>
+                        <a href="/sys/dept/delete?id=${dept.id}&userCount=${dept.userCount}">删除</a>
                     </td>
                 </tr>
             </c:forEach>
 
         </table>
-        <a href="/sys/dept/listAll?name=${name}&page=1" class="btn btn-primary">首页</a>
-        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCurrent<=1 ? 1 : (page.pageCurrent-1)}"
+        <a href="/sys/dept/listAll?name=${name}&page=1&begin=${date.beginDate}&end=${date.endDate}"
+           class="btn btn-primary">首页</a>
+        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCurrent<=1 ? 1 : (page.pageCurrent-1)}&begin=${date.beginDate}&end=${date.endDate}"
            class="btn btn-info">上一页</a>
-        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCurrent>=page.pageCount ? page.pageCount : (page.pageCurrent+1)}"
+        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCurrent>=page.pageCount ? page.pageCount : (page.pageCurrent+1)}&begin=${date.beginDate}&end=${date.endDate}"
            class="btn btn-info">下一页</a>
-        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCount}" class="btn btn-primary">尾页</a>
+        <a href="/sys/dept/listAll?name=${name}&page=${page.pageCount}&end=${date.endDate}"
+           class="btn btn-primary">尾页</a>
         <br>
         当前页：${page.pageCurrent}，总页数：${page.pageCount},总记录数：${page.count},每页显示记录数：${page.pageSize}
     </div>
