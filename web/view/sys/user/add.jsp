@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>添加用户</title>
+    <script src="${path}/static/jquery-validation-1.9.0/jquery.validate.js"></script>
 </head>
-<script src="${path}/static/jquery-validation-1.9.0/jquery.validate.js"></script>
 <body>
 <%@ include file="/view/common/head.jsp" %>
 <div>

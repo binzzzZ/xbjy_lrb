@@ -2,9 +2,8 @@
 <html>
 <head>
     <title>修改用户</title>
+    <script src="${path}/static/jquery-validation-1.9.0/jquery.validate.js"></script>
 </head>
-
-<script src="${path}/static/jquery-validation-1.9.0/jquery.validate.js"></script>
 <body>
 <%@ include file="/view/common/head.jsp" %>
 <div>
@@ -84,8 +83,6 @@
                 $("#dept").append(html);
             })
         });
-
-        $.noConflict();
 
         $.validator.addMethod("checkAccount", function (value, element, params) {
             var reg = new RegExp("^[0-9a-zA-Z]{5,10}$");
@@ -170,6 +167,6 @@
                 }
             }
         });
-    })
+    });
 </script>
 </html>

@@ -3,7 +3,6 @@
 <head>
     <title>添加用户</title>
 </head>
-
 <body>
 <%@ include file="/view/common/head.jsp" %>
 <div>
