@@ -30,12 +30,12 @@
 
                 <div class="form-group">
                     <label>姓名</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名" required>
                 </div>
 
                 <div class="form-group">
                     <label>年龄</label>
-                    <input type="text" class="form-control" id="age" name="age">
+                    <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄">
                 </div>
 
                 <div class="form-group">
@@ -46,7 +46,7 @@
 
                 <div class="form-group">
                     <label>邮箱</label>
-                    <input type="text" class="form-control" id="email" name="email" required>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱" required>
                 </div>
 
                 <div class="form-group">

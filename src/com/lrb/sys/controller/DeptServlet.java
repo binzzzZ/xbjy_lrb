@@ -29,6 +29,13 @@ import java.util.Map;
 public class DeptServlet extends BaseServlet {
     private DeptServiceImpl deptService = new DeptServiceImpl();
 
+    /**
+    * @Description: 部门信息回显到用户查询
+    * @author: lrb
+    * @param: [request, response]
+    * @return: void
+    * @create: 2019/12/6 9:48
+    */
     public void list(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Dept> list = deptService.list();
         String deptStr = JSON.toJSONString(list);
