@@ -3,6 +3,7 @@
 <head>
     <title>查询部门</title>
 </head>
+
 <body>
 <%@ include file="/view/common/head.jsp" %>
 <div>

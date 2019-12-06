@@ -3,6 +3,7 @@
 <head>
     <title>忘记密码</title>
 </head>
+
 <body>
 <div class="container">
     <div class="container-fluid" style="width: 40%;padding-top: 100px">

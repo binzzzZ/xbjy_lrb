@@ -24,7 +24,7 @@ import java.net.URLDecoder;
  * @create 2019/11/29 17:26
  * @Description
  */
-@WebFilter("/*")
+//@WebFilter("/*")
 public class SysFilter implements javax.servlet.Filter {
 
     @Override

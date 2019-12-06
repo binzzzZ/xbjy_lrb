@@ -3,6 +3,7 @@
 <head>
     <title>修改用户</title>
 </head>
+
 <script src="${path}/static/jquery-validation-1.9.0/jquery.validate.js"></script>
 <body>
 <%@ include file="/view/common/head.jsp" %>

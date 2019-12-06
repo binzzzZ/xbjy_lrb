@@ -3,6 +3,10 @@
 <head>
     <title>菜单</title>
 </head>
+
+<body>
+<div id="menu" style="border: 1px solid red;width: 10%;height: 85%;float: left;"></div>
+</body>
 <script>
     $(function () {
 
@@ -25,15 +29,9 @@
                     }
                     html = html + '</ul>';
                 }
-
                 $("#menu").append(html);
             }
         });
     })
 </script>
-<body>
-<div id="menu" style="border: 1px solid red;width: 10%;height: 85%;float: left;">
-
-</div>
-</body>
 </html>

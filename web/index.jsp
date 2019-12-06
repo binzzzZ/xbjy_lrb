@@ -3,6 +3,7 @@
 <head>
     <title>登录页面</title>
 </head>
+
 <body>
 <div class="container">
     <div class="container-fluid" style="width: 40%;padding-top: 100px">
@@ -16,7 +17,8 @@
             7天免登录：<input type="checkbox" name="remember" value="1"><br><br>
             <input type="submit" name="" value="登录">
         </form>
-        <a href="/view/sys/login/forget.jsp">忘记密码</a></div>
+        <a href="/view/sys/login/forget.jsp">忘记密码</a>
+    </div>
 </div>
 </body>
 <script>

@@ -3,6 +3,7 @@
 <head>
     <title>修改用户</title>
 </head>
+
 <body>
 <%@ include file="/view/common/head.jsp" %>
 <div>
@@ -27,7 +28,4 @@
     </div>
 </div>
 </body>
-
-<script>
-</script>
 </html>

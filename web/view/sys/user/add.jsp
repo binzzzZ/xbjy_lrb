@@ -81,8 +81,6 @@
             })
         });
 
-        $.noConflict();
-
         $.validator.addMethod("checkAccount", function (value, element, params) {
             var reg = new RegExp("^[0-9a-zA-Z]{5,10}$");
             if (reg.test(value)) {
